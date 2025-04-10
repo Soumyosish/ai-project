@@ -1,0 +1,933 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Add these styles near the top of your CSS file, after the body styles */
+body {
+    line-height: 1.6;
+    color: #333;
+    background: url('https://media.istockphoto.com/id/502426696/photo/beautiful-seascape.jpg?s=612x612&w=0&k=20&c=r0JGQkPUlAmKH2fxU0aZ05UcFUbKAplBrbkPuwhJYlQ=');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow: hidden; /* Add this line */
+}
+
+/* Update the alerts section to use custom scrollbar */
+.alerts-section {
+    position: relative;
+    left: 20px;
+    top: 100px;
+    width: 40%;
+    padding: 1rem;
+    z-index: 999;
+    max-height: calc(100vh - 120px); /* Limit height */
+    overflow-y: auto; /* Enable vertical scroll for alerts only */
+}
+
+/* Style the scrollbar for alerts section */
+.alerts-section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.alerts-section::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.alerts-section::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+/* Update chat window scrollbar */
+.chat {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.chat::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+/* Navbar Styles */
+.navbar {
+    /* Remove background-color */
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    /* Add backdrop-filter for better text readability */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Update logo color for better visibility */
+/* Update logo styles */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    border-radius: 50%;
+}
+
+.logo span {
+    white-space: nowrap;
+}
+
+/* Update nav links for better visibility */
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.nav-links a:hover {
+    color: #3498db;
+    background-color: #2c3e50;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo {
+    color: #ecf0f1;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+
+.emergency-btn button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.emergency-btn button:hover {
+    background-color: #c0392b;
+}
+
+/* Hero Section */
+.hero-section {
+    /* background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://source.unsplash.com/1600x900/?emergency,safety') center/cover; */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 0 1rem;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Section Styles */
+section {
+    padding: 5rem 2rem;
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #2c3e50;
+}
+
+/* Weather Section */
+.weather-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.weather-info, .weather-alerts {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Incident Reporting */
+.incident-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.incident-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.incident-form input,
+.incident-form select,
+.incident-form textarea {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.incident-form button {
+    background-color: #2ecc71;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.incident-form button:hover {
+    background-color: #27ae60;
+}
+
+/* Travel Section */
+.travel-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.travel-advisory, .travel-tips {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.travel-tips ul {
+    list-style-position: inside;
+    margin-top: 1rem;
+}
+
+/* Update Weather Widget Styles */
+.weather-widget {
+    position: fixed;
+    top: 100px;
+    left: calc(40% + 40px); /* Position after alerts section */
+    width: 350px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    z-index: 997;
+}
+
+/* Update responsive styles for weather widget */
+@media (max-width: 1200px) {
+    .weather-widget {
+        left: calc(75% + 40px);
+    }
+}
+
+@media (max-width: 768px) {
+    .weather-widget {
+        position: relative;
+        left: 0;
+        top: 80px;
+        width: 90%;
+        margin: 20px auto;
+    }
+}
+
+.weather-button.location {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #2ecc71, #28a745);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.weather-button.location:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+.loading {
+    text-align: center;
+    padding: 10px;
+    display: none;
+}
+
+.location-info {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(245, 246, 250, 0.5);
+    border-radius: 8px;
+}
+
+.location-title {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+}
+
+.current-weather {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    gap: 15px;
+}
+
+.weather-icon {
+    width: 100px;
+    height: 100px;
+}
+
+.temperature {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1a1a1a;
+}
+
+.weather-description {
+    font-size: 1.1rem;
+    color: #4a5568;
+    text-transform: capitalize;
+}
+
+.location-name {
+    font-size: 1rem;
+    color: #718096;
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .weather-widget {
+        position: relative;
+        top: 80px;
+        right: auto;
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+.safety-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.safety-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.safety-card h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.safety-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.safety-card ul li {
+    margin: 10px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.safety-card ul li:before {
+    content: "•";
+    color: #3498db;
+    position: absolute;
+    left: 0;
+}
+    /* gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto; */
+.safety-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.safety-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.safety-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2000;
+}
+
+/* Add these styles for the travel modal */
+/* Update the modal content styles */
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 10px;
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Update travel modal specific styles */
+#travel-modal .modal-content {
+    max-width: 1000px;
+}
+
+#travel-modal .safety-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 20px;
+}
+
+#travel-modal .safety-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#travel-modal .safety-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3498db;
+}
+
+#travel-modal .safety-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#travel-modal .safety-card ul li {
+    margin: 0.8rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+#travel-modal .safety-card ul li:before {
+    content: "•";
+    color: #3498db;
+    position: absolute;
+    left: 0;
+}
+
+#travel-modal .travel-container {
+    margin-top: 20px;
+}
+
+#travel-modal .travel-advisory h4 {
+    color: #2c3e50;
+    margin-top: 15px;
+}
+
+#travel-modal .travel-advisory p {
+    margin: 5px 0;
+}
+
+#safety-modal .modal-content {
+    max-width: 1000px;
+    margin: 5% auto;
+}
+
+#safety-modal .safety-grid {
+    margin-top: 20px;
+}
+
+.close-btn {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.emergency-contacts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.contact {
+    text-align: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+/* Remove all chat-related styles */
+/* Keep everything above until footer styles */
+
+/* Footer */
+footer {
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    section {
+        padding: 3rem 1rem;
+    }
+
+    .modal-content {
+        margin: 30% auto;
+    }
+}
+
+/* Add these styles for the incident modal */
+#incident-modal .modal-content {
+    max-width: 800px;
+    margin: 5% auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+#incident-modal .incident-form {
+    margin-top: 20px;
+    box-shadow: none;
+    padding: 0;
+}
+
+/* Chat Interface Variables */
+:root {
+    --grey: #f5f5f5;
+    --blue: #3d88f9;
+    --black: #1a1a1a;
+}
+
+/* Chat Window Display */
+body.chat-open .chat-window {
+    display: flex;
+}
+
+/* Chat Button */
+.chat-button {
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    z-index: 998;
+    background-color: var(--black);
+    color: white;
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.chat-button img {
+    width: 50px;
+}
+
+.chat-button:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+}
+.chat-window.active {
+    display: flex;
+}
+
+.chat {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.model, .user {
+    margin: 10px 0;
+    padding: 12px 16px;
+    border-radius: 15px;
+    max-width: 80%;
+}
+
+.model {
+    background: #f1f5f9;
+    margin-right: auto;
+}
+
+/* .chat p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 10px 0;
+    padding: 16px 20px;
+} */
+
+.input-area {
+    display: flex;
+    padding: 15px 20px; /* Increased padding */
+    border-top: 1px solid #e2e8f0;
+    gap: 10px;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 12px 20px; /* Increased padding */
+    font-size: 15px; /* Increased font size */
+    height: 45px; /* Increased height */
+}
+
+.input-area button {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    border: none;
+    margin-left: 12px;
+    background-color: var(--blue);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.input-area button img {
+    width: 18px;
+}
+
+.input-area button:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* Loading Animation */
+.loader {
+    width: 40px;
+    opacity: 0.4;
+    aspect-ratio: 4;
+    background: radial-gradient(circle closest-side,#000 90%,#0000) 0/calc(100%/3) 100% space;
+    clip-path: inset(0 100% 0 0);
+    animation: l1 1.5s steps(4) infinite;
+}
+
+@keyframes l1 {
+    to {
+        clip-path: inset(0 -34% 0 0);
+    }
+}
+
+/* Safety alerts styles */
+.safety-alert {
+    background-color: #fff9e6;
+    border-left: 3px solid var(--alert-yellow);
+    color: #8a6100;
+    padding: 16px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+/* Update Alerts Section Styles */
+.alerts-section {
+    position: relative;
+    left: 20px;
+    top: 100px;
+    width: 40%; /* Increased width */
+    padding: 1rem;
+    z-index: 999;
+}
+
+.alerts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.alert {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 1.2rem;
+    padding-right: 80px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Weather Alert specific style */
+.alert.weather {
+    background-color: rgba(255, 243, 224, 0.95);
+    border-left: 4px solid #ffa940;
+}
+
+/* Health Advisory specific style */
+.alert.health {
+    background-color: rgba(236, 255, 239, 0.95);
+    border-left: 4px solid #52c41a;
+}
+
+/* Travel Advisory specific style */
+.alert.travel {
+    background-color: rgba(255, 235, 235, 0.95);
+    border-left: 4px solid #ff4d4f;
+}
+
+.alert h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+    text-shadow: none;
+}
+
+.alert p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    color: #444;
+}
+
+.alert small {
+    font-size: 0.85rem;
+    color: #666;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .alerts-section {
+        width: 75%;
+    }
+}
+
+@media (max-width: 768px) {
+    .alerts-section {
+        position: relative;
+        left: 0;
+        width: 100%;
+        padding: 1rem;
+        margin-top: 60px;
+    }
+}
+/* .chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.chat-window.active {
+    display: flex;
+} */
+
+/* .chat {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.model, .user {
+    margin: 10px 0;
+    padding: 12px 16px;
+    border-radius: 15px;
+    max-width: 80%;
+} */
+
+/* .model {
+    background: #f1f5f9;
+    margin-right: auto;
+} */
+
+.user {
+    background: #3b82f6;
+    color: white;
+    margin-left: auto;
+}
+
+.input-area {
+    display: flex;
+    padding: 3px;
+    border-top: 1px solid #e2e8f0;
+    gap: 5px;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 1px 1px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+}
+
+.input-area button {
+    background: #3b82f6;
+    border: none;
+    padding: 3px 1px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.input-area button img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+.chat-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: #3b82f6;
+    border-radius: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px blue;
+    z-index: 999;
+}
+
+.chat-button:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s;
+}
+
+.close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #64748b;
+}
+
+.close:hover {
+    color: #475569;
+}

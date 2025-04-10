@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety & Emergency Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="weather.js" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuVNJuiQsLncQbn6-U4rGLCjUajk7CRMqYtw&s" alt="Safety Logo">
+            <span>AI Safety & Emergency Guide</span>
+        </div>
+        <!-- Update the navigation link -->
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#weather">Weather Alerts</a></li>
+            <li><a href="#" onclick="showIncidentReporting()">Incident Reporting</a></li>
+            <li><a href="#" onclick="showTravelSafety()">Travel Safety</a></li>
+            <li><a href="#" onclick="showSafetyPrecautions()">Safety Precautions</a></li>
+        </ul>
+        <div class="emergency-btn">
+            <button onclick="showEmergencyContacts()">Emergency Contacts</button>
+        </div>
+    </nav>
+
+    <!-- Weather Widget -->
+    <div class="weather-widget">
+        <button class="weather-button location">
+            <i class="fas fa-location-dot"></i> Update Location
+        </button>
+        <div class="loading">Loading...</div>
+        <div class="weather-info"></div>
+    </div>
+
+    <!-- Your existing alerts section -->
+    <section id="alerts" class="alerts-section">
+        <div class="container">
+            <!-- <h2>Current Alerts</h2> -->
+            <div class="alerts-container">
+                <!-- Alerts will be dynamically populated here -->
+            </div>
+        </div>
+    </section>
+
+    <section id="incidents" class="incidents-section">
+        <div id="incident-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeIncidentReporting()">&times;</span>
+                <h2>Incident Reporting</h2>
+                <div class="incident-form">
+                    <form id="reportForm" onsubmit="submitReport(event)">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <select required>
+                            <option value="">Select Incident Type</option>
+                            <option value="accident">Accident</option>
+                            <option value="fire">Fire</option>
+                            <option value="medical">Medical Emergency</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <textarea placeholder="Describe the incident..." required></textarea>
+                        <button type="submit">Submit Report</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Remove this entire section -->
+    <section id="travel" class="travel-section">
+        <!-- Remove all travel section content -->
+    </section>
+
+    <!-- Keep the travel modal as is, it's already properly set up -->
+    <div id="travel-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeTravelSafety()">&times;</span>
+            <h2>Travel Safety</h2>
+            <div class="travel-container">
+                <div class="travel-advisory">
+                    <h3>Travel Advisories</h3>
+                    <div id="advisory-list">
+                        <h4>General Travel</h4>
+                        <p>Information</p>
+                        <p>Always check local guidelines and restrictions before traveling.</p>
+                        
+                        <h4>International Travel</h4>
+                        <p>Advisory</p>
+                        <p>Ensure your passports and visas are up to date.</p>
+                        
+                        <h4>Health Safety</h4>
+                        <p>Notice</p>
+                        <p>Check required vaccinations and health insurance coverage.</p>
+                    </div>
+                </div>
+                <div class="travel-tips">
+                    <h3>Essential Travel Safety Tips</h3>
+                    <ul>
+                        <li>Research your destination thoroughly</li>
+                        <li>Keep emergency contacts handy</li>
+                        <li>Secure important documents</li>
+                        <li>Stay aware of your surroundings</li>
+                        <li>Register with your embassy when abroad</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove the existing precautions section and add this new modal -->
+    <div id="safety-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeSafetyPrecautions()">&times;</span>
+            <h2>Safety Precautions</h2>
+            <div class="safety-grid">
+                <div class="safety-card">
+                    <h3>Home Safety</h3>
+                    <ul id="home-safety-tips"></ul>
+                </div>
+                <div class="safety-card">
+                    <h3>Workplace Safety</h3>
+                    <ul id="workplace-safety-tips"></ul>
+                </div>
+                <div class="safety-card">
+                    <h3>Public Safety</h3>
+                    <ul id="public-safety-tips"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update the travel modal content -->
+    <div id="travel-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeTravelSafety()">&times;</span>
+            <h2>Safety Guidelines</h2>
+            <div class="safety-grid">
+                <div class="safety-card">
+                    <h3>Home Safety</h3>
+                    <ul>
+                        <li>Install smoke detectors on every floor</li>
+                        <li>Keep a fire extinguisher readily available</li>
+                        <li>Create an emergency evacuation plan</li>
+                        <li>Store emergency supplies and first aid kit</li>
+                        <li>Secure furniture to prevent tipping</li>
+                    </ul>
+                </div>
+                <div class="safety-card">
+                    <h3>Workplace Safety</h3>
+                    <ul>
+                        <li>Know your emergency exits</li>
+                        <li>Keep emergency contact numbers visible</li>
+                        <li>Maintain clear pathways</li>
+                        <li>Report hazardous conditions immediately</li>
+                        <li>Follow proper lifting techniques</li>
+                    </ul>
+                </div>
+                <div class="safety-card">
+                    <h3>Public Safety</h3>
+                    <ul>
+                        <li>Stay aware of your surroundings</li>
+                        <li>Keep valuables secure and hidden</li>
+                        <li>Know the locations of emergency services</li>
+                        <li>Avoid walking alone at night</li>
+                        <li>Follow traffic safety rules</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="emergency-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEmergencyContacts()">&times;</span>
+            <h2>Emergency Contacts</h2>
+            <div class="emergency-contacts">
+                <div class="contact">
+                    <h3>Police</h3>
+                    <p>Dial: 100 / 112</p>
+                </div>
+                <div class="contact">
+                    <h3>Fire Department</h3>
+                    <p>Dial: 101</p>
+                </div>
+                <div class="contact">
+                    <h3>Ambulance</h3>
+                    <p>Dial: 102</p>
+                </div>
+                <div class="contact">
+                    <h3>Disaster Management</h3>
+                    <p>Dial: 108</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <!-- Remove chat incidnterface and related scripts -->
+        <!-- Add before closing body tag -->
+        <section class="chat-window">
+            <button class="close">x close</button>
+            <div class="chat">
+                <div class="model">
+                    <p>Hi, I'm your TravelSafe Assistant! I can provide safety information, travel alerts, and emergency guidance for your journey. How can I help you today?</p>
+                </div>
+            </div>
+            <div class="input-area">
+                <input placeholder="Ask about travel safety, emergency procedures, or local risks..." type="text">
+                <button>
+                    <img src="send-icon.png" alt="send">
+                </button>
+            </div>
+        </section>
+    
+        <div class="chat-button">
+            <img src="chat-icon.png" alt="start chat">
+        </div>
+    
+        <script type="importmap">
+            {
+              "imports": {
+                "@google/generative-ai": "https://esm.run/@google/generative-ai"
+              }
+            }
+        </script>
+        
+        <script src="script.js"></script>
+        <script type="module" src="chatbot.js"></script>
+    </body>
+</html>
