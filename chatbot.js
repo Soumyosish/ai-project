@@ -1,57 +1,46 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Travel safety chatbot configuration
-const travelSafetyInfo = `
-You are TravelSafe AI Assistant - a specialized chatbot focused on providing travel safety information,
-emergency guidance, and real-time alerts for travelers.
+const safetyAssistantInfo = `
+You are an Emergency and Safety AI Assistant specialized in providing critical safety information and emergency guidance.
 
-Your primary functions are:
-1. Provide detailed safety information for countries and cities worldwide
-2. Offer emergency procedures and protocols for various situations travelers might face
-3. Give health and medical advice relevant to travelers
-4. Explain local laws, customs, and cultural considerations that impact safety
-5. Provide guidance on natural disaster preparedness and response
-6. Assist with lost documents, theft reporting, and emergency contacts
+Your ONLY functions are:
+1. Emergency response procedures and protocols
+2. Natural disaster preparedness and response
+3. First aid and medical emergency guidance
+4. Fire safety and evacuation procedures
+5. Workplace safety protocols
+6. Home safety measures
+7. Public safety guidelines
+8. Emergency contact information
+9. Disaster recovery steps
+10. Safety equipment usage
 
-When responding to queries:
-1. Be comprehensive yet concise - prioritize actionable information
-2. Include specific safety tips relevant to the location being discussed
-3. Cite official sources when appropriate (embassies, WHO, CDC)
-4. For emergencies, always emphasize contacting local emergency services first
-5. Provide both preventative advice and response guidance
-6. Personalize responses based on the user's context when possible
+IMPORTANT RULES:
+1. ONLY respond to questions related to safety and emergencies
+2. For non-safety questions, respond: "I am a Safety & Emergency Assistant. I can only help with safety-related questions and emergency procedures. Please ask me about safety protocols, emergency responses, or disaster management."
+3. For medical emergencies, always emphasize contacting emergency services first
+4. Provide clear, step-by-step safety instructions
+5. Include relevant emergency numbers when applicable
 
-Tone Guidelines:
-- Clear and authoritative but reassuring
-- Factual without being alarmist
-- Empathetic to traveler concerns
-- Conversational but professional
-
-Sample emergency numbers to include when relevant:
-- United States: 911
-- European Union: 112
-- United Kingdom: 999
-- Australia: 000
-- Canada: 911
-- Japan: 110 (Police), 119 (Fire/Ambulance)
-- India: 112 (All-in-one emergency number: Police, Fire, Ambulance)
-
-Remember to stress the importance of registering with embassies when traveling abroad and having emergency contacts readily available.
+Emergency Contact Information:
+- India Emergency: 112 (All emergencies)
+- Police: 100
+- Fire: 101
+- Ambulance: 102
+- Disaster Management: 108
 `;
 
-// API key for Google Generative AI
 const API_KEY = "AIzaSyBL_ELLr6MObMKmwv7UylcSsxkUJ7Mv4cE";
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ 
     model: "gemini-1.5-pro",
-    systemInstruction: travelSafetyInfo
+    systemInstruction: safetyAssistantInfo
 });
 
-// Message history for conversation context
 let messages = {
     history: [],
 };
-// Send message to AI model
+
 async function sendMessage() {
     const userMessage = document.querySelector(".chat-window input").value;
     
@@ -68,11 +57,10 @@ async function sendMessage() {
                 <div class="loader"></div>
             `);
 
-            // Include location context in the query if available
-            let enhancedMessage = userMessage;
-            // if (userLocation.city && userLocation.country) {
-            //     enhancedMessage = `[User is in ${userLocation.city}, ${userLocation.country}] ${userMessage}`;
-            // }
+            // Enhance message with safety context
+            const enhancedMessage = `Context: User asking about safety/emergency. 
+                                   Query: ${userMessage}
+                                   Remember to ONLY provide safety and emergency-related information.`;
 
             const chat = model.startChat(messages);
             let result = await chat.sendMessageStream(enhancedMessage);
@@ -83,7 +71,6 @@ async function sendMessage() {
                 </div>
             `);
             
-            let modelMessages = '';
             const modelResponse = document.querySelectorAll(".chat-window .chat div.model");
             const currentModelElement = modelResponse[modelResponse.length - 1].querySelector("p");
 
@@ -92,26 +79,21 @@ async function sendMessage() {
                 currentModelElement.insertAdjacentHTML("beforeend", `${chunkText}`);
             }
 
-            // Update the messages history
-            messages.history.push({
-                role: "user",
-                parts: [{ text: userMessage }],
-            });
+            // Update conversation history
+            messages.history.push(
+                { role: "user", parts: [{ text: userMessage }] },
+                { role: "model", parts: [{ text: currentModelElement.innerHTML }] }
+            );
 
-            messages.history.push({
-                role: "model",
-                parts: [{ text: currentModelElement.innerHTML }],
-            });
-
-            // Auto-scroll to bottom of chat
+            // Auto-scroll chat
             const chatContainer = document.querySelector(".chat-window .chat");
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
         } catch (error) {
-            console.error("Error sending message:", error);
+            console.error("Error:", error);
             document.querySelector(".chat-window .chat").insertAdjacentHTML("beforeend", `
                 <div class="error">
-                    <p>The message could not be sent. Please try again.</p>
+                    <p>I apologize, but I'm having trouble processing your safety query. Please try again.</p>
                 </div>
             `);
         }
@@ -119,28 +101,20 @@ async function sendMessage() {
         document.querySelector(".chat-window .chat .loader").remove();
     }
 }
+
 // Event Listeners
-document.addEventListener('DOMContentLoaded', async () => {
-    // Get chat window element
+document.addEventListener('DOMContentLoaded', () => {
     const chatWindow = document.querySelector('.chat-window');
     
-    // Chat button click
-    document.querySelector(".chat-button").addEventListener("click", () => {
-        chatWindow.classList.add('active');
-    });
+    document.querySelector(".chat-button").addEventListener("click", () => 
+        chatWindow.classList.add('active'));
     
-    // Close chat button
-    document.querySelector(".chat-window button.close").addEventListener("click", () => {
-        chatWindow.classList.remove('active');
-    });
+    document.querySelector(".chat-window button.close").addEventListener("click", () => 
+        chatWindow.classList.remove('active'));
     
-    // Send message button
-    document.querySelector(".chat-window .input-area button").addEventListener("click", () => sendMessage());
+    document.querySelector(".chat-window .input-area button").addEventListener("click", sendMessage);
     
-    // Send message on Enter key
     document.querySelector(".chat-window input").addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-            sendMessage();
-        }
+        if (event.key === "Enter") sendMessage();
     });
 });
